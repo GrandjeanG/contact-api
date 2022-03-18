@@ -198,7 +198,8 @@
   <li><a href="#addSkill"><code><span class="http-method">put</span> /contact/{contactId}/skill/{skillId}</code></a></li>
   <li><a href="#createContact"><code><span class="http-method">post</span> /contact</code></a></li>
   <li><a href="#deleteContact"><code><span class="http-method">delete</span> /contact/{contactId}</code></a></li>
-  <li><a href="#getAllSkill"><code><span class="http-method">get</span> /contact/{contactId}/skill</code></a></li>
+  <li><a href="#getAllContacts"><code><span class="http-method">get</span> /contact</code></a></li>
+  <li><a href="#getAllSkillFromContact"><code><span class="http-method">get</span> /contact/{contactId}/skill</code></a></li>
   <li><a href="#getOneContact"><code><span class="http-method">get</span> /contact/{contactId}</code></a></li>
   <li><a href="#removeSkill"><code><span class="http-method">delete</span> /contact/{contactId}/skill/{skillId}</code></a></li>
   <li><a href="#updateContact"><code><span class="http-method">put</span> /contact/{contactId}</code></a></li>
@@ -207,6 +208,7 @@
   <ul>
   <li><a href="#createSkill"><code><span class="http-method">post</span> /skill</code></a></li>
   <li><a href="#deleteSkill"><code><span class="http-method">delete</span> /skill/{skillId}</code></a></li>
+  <li><a href="#getAllSkill"><code><span class="http-method">get</span> /skill</code></a></li>
   <li><a href="#getOneSkill"><code><span class="http-method">get</span> /skill/{skillId}</code></a></li>
   <li><a href="#updateSkill"><code><span class="http-method">put</span> /skill/{skillId}</code></a></li>
   </ul>
@@ -347,11 +349,65 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="getAllSkill"></a>
+  <div class="method"><a name="getAllContacts"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /contact</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getAllContacts</span>)</div>
+    <div class="method-notes">get all contacts</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Contact">Contact</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "firstname" : "firstname",
+  "address" : "address",
+  "mobile" : "mobile",
+  "id" : "id",
+  "fullname" : "fullname",
+  "email" : "",
+  "lastname" : "lastname"
+}, {
+  "firstname" : "firstname",
+  "address" : "address",
+  "mobile" : "mobile",
+  "id" : "id",
+  "fullname" : "fullname",
+  "email" : "",
+  "lastname" : "lastname"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Return all the contacts
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllSkillFromContact"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /contact/{contactId}/skill</code></pre></div>
-    <div class="method-summary"> (<span class="nickname">getAllSkill</span>)</div>
+    <div class="method-summary"> (<span class="nickname">getAllSkillFromContact</span>)</div>
     <div class="method-notes">Get all skills of one contact</div>
 
     <h3 class="field-label">Path parameters</h3>
@@ -623,6 +679,52 @@
     <h4 class="field-label">204</h4>
     Skill is deleted
         <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllSkill"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /skill</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getAllSkill</span>)</div>
+    <div class="method-notes">get all the skills</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Skill">Skill</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>[ {
+  "level" : "LOW",
+  "name" : "name",
+  "id" : "id"
+}, {
+  "level" : "LOW",
+  "name" : "name",
+  "id" : "id"
+} ]</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Return all the skills
+        
   </div> <!-- method -->
   <hr/>
   <div class="method"><a name="getOneSkill"></a>

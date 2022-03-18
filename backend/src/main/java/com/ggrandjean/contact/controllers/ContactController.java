@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import com.ggrandjean.contact.services.ContactService;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,15 @@ public class ContactController implements ContactApi {
     public ResponseEntity<Contact> createContact(Contact contact) {
         var createdContact = service.create(mapper.toEntity(contact));
         return prepareResponse(createdContact, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<List<Contact>> getAllContacts() {
+        var contacts = service.getAll().stream().map(mapper::toDto).collect(Collectors.toList());
+        return new ResponseEntity<>(
+                contacts,
+                HttpStatus.OK
+        );
     }
 
     @Override
@@ -65,7 +75,7 @@ public class ContactController implements ContactApi {
     }
 
     @Override
-    public ResponseEntity<Set<Skill>> getAllSkill(String contactId) {
+    public ResponseEntity<Set<Skill>> getAllSkillFromContact(String contactId) {
         var skills = service.getSkills(contactId).stream().map(skillMapper::toDto).collect(Collectors.toSet());
         return new ResponseEntity<>(
                 skills,

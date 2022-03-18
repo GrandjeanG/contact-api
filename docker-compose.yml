@@ -23,3 +23,11 @@ services:
       - mongo
     ports:
       - 8080:8080
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
+    restart: always
+    ports:
+      - 80:80

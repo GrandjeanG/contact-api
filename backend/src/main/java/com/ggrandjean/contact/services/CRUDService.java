@@ -8,10 +8,17 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public abstract class CRUDService<D, E extends Entity> {
 
     protected EntityMapper<D,E> mapper;
     protected MongoRepository<E, String> dao;
+
+    @Transactional(readOnly = true)
+    public List<E> getAll() {
+        return dao.findAll();
+    }
 
     @Transactional(readOnly = true)
     public E getOne(String id) {

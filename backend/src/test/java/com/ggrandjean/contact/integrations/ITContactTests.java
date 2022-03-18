@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -62,7 +63,17 @@ public class ITContactTests {
     }
 
     @Test
-    void test_1_updateContact() throws Exception {
+    void test_1_getAllContacts() throws Exception {
+        mockMvc.perform(get("/contact")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.." + Contact.Fields.id, hasItem(contact.getId())))
+                .andExpect(jsonPath("$.." + Contact.Fields.fullname, hasItem( contactFirstName + ' ' + contactLastName)));
+    }
+
+    @Test
+    void test_2_updateContact() throws Exception {
         contact.setEmail(updatedEmail);
         contact.setFirstname(updateFirstName);
 
@@ -76,9 +87,8 @@ public class ITContactTests {
                 .andExpect(jsonPath("$." + Contact.Fields.fullname, is(updateFirstName + ' ' + contactLastName)));
     }
 
-
     @Test
-    void test_2_getOneContact() throws Exception {
+    void test_3_getOneContact() throws Exception {
         mockMvc.perform(get(String.format("/contact/%s", contact.getId()))
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -88,7 +98,7 @@ public class ITContactTests {
     }
 
     @Test
-    void test_3_deleteContact() throws Exception {
+    void test_4_deleteContact() throws Exception {
         mockMvc.perform(delete(String.format("/contact/%s", contact.getId()))
                         .accept(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isNoContent());

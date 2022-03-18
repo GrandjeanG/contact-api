@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @RestController
 public class SkillController implements SkillApi {
@@ -40,6 +43,15 @@ public class SkillController implements SkillApi {
     public ResponseEntity<Void> deleteSkill(String skillId) {
         service.delete(skillId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<List<Skill>> getAllSkill() {
+        var skills = service.getAll().stream().map(mapper::toDto).collect(Collectors.toList());
+        return new ResponseEntity<>(
+                skills,
+                HttpStatus.OK
+        );
     }
 
     private ResponseEntity<Skill> prepareResponse(SkillEntity entity, HttpStatus status) {

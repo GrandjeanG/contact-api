@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -56,7 +57,16 @@ public class ITSkillTests {
     }
 
     @Test
-    void test_1_updateSkill() throws Exception {
+    void test_1_getAllSkills() throws Exception {
+        mockMvc.perform(get("/skill")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.." + Skill.Fields.id, hasItem(skill.getId())));
+    }
+
+    @Test
+    void test_2_updateSkill() throws Exception {
         skill.setLevel(Level.HIGH);
 
         mockMvc.perform(put(String.format("/skill/%s", skill.getId()))
@@ -68,9 +78,8 @@ public class ITSkillTests {
                 .andExpect(jsonPath("$." + Skill.Fields.level, is(skill.getLevel().name())));
     }
 
-
     @Test
-    void test_2_getOneSkill() throws Exception {
+    void test_3_getOneSkill() throws Exception {
         mockMvc.perform(get(String.format("/skill/%s", skill.getId()))
                         .accept(MediaType.APPLICATION_JSON)
                 )
@@ -80,7 +89,7 @@ public class ITSkillTests {
     }
 
     @Test
-    void test_3_deleteSkill() throws Exception {
+    void test_4_deleteSkill() throws Exception {
         mockMvc.perform(delete(String.format("/skill/%s", skill.getId()))
                 .accept(MediaType.APPLICATION_JSON)
         ).andExpect(status().isNoContent());

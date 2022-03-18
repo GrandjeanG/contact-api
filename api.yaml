@@ -5,6 +5,10 @@ info:
   title: Contact Api
   description: Contact Api for Open Web Technology Challenge
 
+servers:
+  -   url: "localhost:8080"
+      description: Contact Api
+
 tags:
   - name: "Contact"
   - name: "Skill"
@@ -12,6 +16,20 @@ tags:
 paths:
 
   /contact:
+    get:
+      tags:
+        - "Contact"
+      description: get all contacts
+      operationId: getAllContacts
+      responses:
+        '200':
+          description: Return all the contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contact"
     post:
       tags:
         - "Contact"
@@ -94,7 +112,7 @@ paths:
       tags:
         - "Contact"
       description: Get all skills of one contact
-      operationId: getAllSkill
+      operationId: getAllSkillFromContact
       parameters:
         - in: path
           name: contactId
@@ -157,6 +175,20 @@ paths:
           description: Skill was correctly removed from contact
 
   /skill:
+    get:
+      tags:
+        - "Skill"
+      description: get all the skills
+      operationId: getAllSkill
+      responses:
+        '200':
+          description: Return all the skills
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
     post:
       tags:
         - "Skill"

@@ -4,7 +4,6 @@ package com.ggrandjean.contact.controllers;
 import com.ggrandjean.contact.SkillApi;
 import com.ggrandjean.contact.entities.SkillEntity;
 import com.ggrandjean.contact.mappers.SkillMapper;
-import com.ggrandjean.contact.model.Contact;
 import com.ggrandjean.contact.model.Skill;
 import com.ggrandjean.contact.services.SkillService;
 import lombok.AllArgsConstructor;

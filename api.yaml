@@ -89,6 +89,73 @@ paths:
         '204':
           description: Contact is deleted
 
+  /contact/{contactId}/skill:
+    get:
+      tags:
+        - "Contact"
+      description: Get all skills of one contact
+      operationId: getAllSkill
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return list of skill
+          content:
+            application/json:
+              schema:
+                type: array
+                uniqueItems: true
+                items:
+                  $ref: "#/components/schemas/Skill"
+
+  /contact/{contactId}/skill/{skillId}:
+    put:
+      tags:
+        - "Contact"
+      description: Add a skill to a contact
+      operationId: addSkill
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: skillId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return added skill
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Skill"
+    delete:
+      tags:
+        - "Contact"
+      description: Remove a skill from a contact
+      operationId: removeSkill
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: skillId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Skill was correctly removed from contact
+
   /skill:
     post:
       tags:
@@ -181,9 +248,8 @@ components:
           description: Skill name
           type: string
         level:
-          description: Level of the skill
-          type: string
-          enum: ['LOW', 'INTERMEDIATE', 'HIGH']
+          $ref: "#/components/schemas/Level"
+
     Contact:
       description: Contact model
       type: object
@@ -212,3 +278,8 @@ components:
         mobile:
           description: Mobile phone number of the contact
           type: string
+
+    Level:
+      description: Skill level as enum
+      type: string
+      enum: ['LOW', 'INTERMEDIATE', 'HIGH']

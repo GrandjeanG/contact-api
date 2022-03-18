@@ -3,6 +3,7 @@ package com.ggrandjean.contact.integrations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.ggrandjean.contact.model.Level;
 import com.ggrandjean.contact.model.Skill;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ public class ITSkillTests {
 
     @Test
     void test_1_updateSkill() throws Exception {
-        skill.setLevel(Skill.LevelEnum.HIGH);
+        skill.setLevel(Level.HIGH);
 
         mockMvc.perform(put(String.format("/skill/%s", skill.getId()))
                         .content(mapper.writeValueAsString(skill))

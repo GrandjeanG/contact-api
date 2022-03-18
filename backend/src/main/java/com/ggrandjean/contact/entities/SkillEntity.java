@@ -1,7 +1,7 @@
 package com.ggrandjean.contact.entities;
 
 
-import com.ggrandjean.contact.model.Skill;
+import com.ggrandjean.contact.model.Level;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -19,5 +19,5 @@ public class SkillEntity {
 
     private String name;
 
-    private Skill.LevelEnum level;
+    private Level level;
 }

@@ -11,3 +11,15 @@ services:
     restart: always
     ports:
       - 27017:27017
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.dockerfile
+    restart: always
+    environment:
+      spring.data.mongodb.host: mongo
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080

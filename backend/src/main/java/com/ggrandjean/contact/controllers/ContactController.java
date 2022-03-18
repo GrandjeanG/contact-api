@@ -3,12 +3,17 @@ package com.ggrandjean.contact.controllers;
 import com.ggrandjean.contact.ContactApi;
 import com.ggrandjean.contact.entities.ContactEntity;
 import com.ggrandjean.contact.mappers.ContactMapper;
+import com.ggrandjean.contact.mappers.SkillMapper;
 import com.ggrandjean.contact.model.Contact;
+import com.ggrandjean.contact.model.Skill;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.ggrandjean.contact.services.ContactService;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Controller
@@ -16,6 +21,7 @@ public class ContactController implements ContactApi {
 
     private final ContactService service;
     private final ContactMapper mapper;
+    private final SkillMapper skillMapper;
 
     @Override
     public ResponseEntity<Contact> createContact(Contact contact) {
@@ -40,6 +46,30 @@ public class ContactController implements ContactApi {
         service.deleteContact(contactId);
         return new ResponseEntity<>(
                 HttpStatus.NO_CONTENT
+        );
+    }
+
+    @Override
+    public ResponseEntity<Skill> addSkill(String contactId, String skillId) {
+        var addedSkill = service.addSkill(contactId, skillId);
+        return new ResponseEntity<>(
+                skillMapper.toDto(addedSkill),
+                HttpStatus.OK
+        );
+    }
+
+    @Override
+    public ResponseEntity<Void> removeSkill(String contactId, String skillId) {
+        service.removeSkill(contactId, skillId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<Set<Skill>> getAllSkill(String contactId) {
+        var skills = service.getSkills(contactId).stream().map(skillMapper::toDto).collect(Collectors.toSet());
+        return new ResponseEntity<>(
+                skills,
+                HttpStatus.OK
         );
     }
 

@@ -7,6 +7,7 @@ info:
 
 tags:
   - name: "Contact"
+  - name: "Skill"
 
 paths:
 
@@ -88,8 +89,101 @@ paths:
         '204':
           description: Contact is deleted
 
+  /skill:
+    post:
+      tags:
+        - "Skill"
+      description: Create skill
+      operationId: createSkill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Skill"
+      responses:
+        '201':
+          description: Return new skill model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+
+  /skill/{skillId}:
+    get:
+      tags:
+        - "Skill"
+      description: Get one skill
+      operationId: getOneSkill
+      parameters:
+        - in: path
+          name: skillId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return skill model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+    put:
+      tags:
+        - "Skill"
+      description: Update one skill
+      operationId: updateSkill
+      parameters:
+        - in: path
+          name: skillId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Skill"
+      responses:
+        '200':
+          description: Return updated skill model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+    delete:
+      tags:
+        - "Skill"
+      description: Delete one skill
+      operationId: deleteSkill
+      parameters:
+        - in: path
+          name: skillId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Skill is deleted
+
 components:
   schemas:
+    Skill:
+      description: Skill model
+      type: object
+      properties:
+        id:
+          description: Id of the skill.
+          type: string
+          readOnly: true
+        name:
+          description: Skill name
+          type: string
+        level:
+          description: Level of the skill
+          type: string
+          enum: ['LOW', 'INTERMEDIATE', 'HIGH']
     Contact:
       description: Contact model
       type: object
@@ -97,6 +191,7 @@ components:
         id:
           description: Id of the contact.
           type: string
+          readOnly: true
         firstname:
           description: First name of the contact
           type: string

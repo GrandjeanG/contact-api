@@ -20,25 +20,25 @@ public class SkillController implements SkillApi {
 
     @Override
     public ResponseEntity<Skill> createSkill(Skill skill) {
-        var createdSkill = service.createSkill(mapper.toEntity(skill));
+        var createdSkill = service.create(mapper.toEntity(skill));
         return prepareResponse(createdSkill, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Skill> getOneSkill(String skillId) {
-        var skill = service.getOneSkill(skillId);
+        var skill = service.getOne(skillId);
         return prepareResponse(skill, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Skill> updateSkill(String skillId, Skill skill) {
-        var skillUpdated = service.updateSkill(skillId, mapper.toEntity(skill));
+        var skillUpdated = service.update(skillId, mapper.toEntity(skill));
         return prepareResponse(skillUpdated, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Void> deleteSkill(String skillId) {
-        service.deleteSkill(skillId);
+        service.delete(skillId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

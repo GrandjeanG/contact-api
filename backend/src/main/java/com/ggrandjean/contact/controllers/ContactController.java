@@ -20,30 +20,30 @@ import java.util.stream.Collectors;
 public class ContactController implements ContactApi {
 
     private final ContactService service;
-    private final ContactMapper mapper;
     private final SkillMapper skillMapper;
+    private final ContactMapper mapper;
 
     @Override
     public ResponseEntity<Contact> createContact(Contact contact) {
-        var createdContact = service.createContact(mapper.toEntity(contact));
+        var createdContact = service.create(mapper.toEntity(contact));
         return prepareResponse(createdContact, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Contact> getOneContact(String contactId) {
-        var contact = service.getOneContact(contactId);
+        var contact = service.getOne(contactId);
         return prepareResponse(contact, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Contact> updateContact(String contactId, Contact contact) {
-        var updatedContact = service.updateContact(contactId, mapper.toEntity(contact));
+        var updatedContact = service.update(contactId, mapper.toEntity(contact));
         return prepareResponse(updatedContact, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Void> deleteContact(String contactId) {
-        service.deleteContact(contactId);
+        service.delete(contactId);
         return new ResponseEntity<>(
                 HttpStatus.NO_CONTENT
         );
@@ -73,7 +73,8 @@ public class ContactController implements ContactApi {
         );
     }
 
-    private ResponseEntity<Contact> prepareResponse(ContactEntity entity, HttpStatus status) {
+
+    protected ResponseEntity<Contact> prepareResponse(ContactEntity entity, HttpStatus status) {
         return new ResponseEntity<>(
                 mapper.toDto(entity),
                 status

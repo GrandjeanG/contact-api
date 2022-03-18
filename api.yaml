@@ -9,6 +9,27 @@ tags:
   - name: "Contact"
 
 paths:
+
+  /contact:
+    post:
+      tags:
+        - "Contact"
+      description: Create contact
+      operationId: createContact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Contact"
+      responses:
+        '201':
+          description: Return new contact model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+
   /contact/{contactId}:
     get:
       tags:
@@ -28,6 +49,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Contact'
+    put:
+      tags:
+        - "Contact"
+      description: Update one contact
+      operationId: updateContact
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Contact"
+      responses:
+        '200':
+          description: Return updated contact model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+    delete:
+      tags:
+        - "Contact"
+      description: Delete one contact
+      operationId: deleteContact
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Contact is deleted
 
 components:
   schemas:
@@ -40,4 +99,21 @@ components:
           type: string
         firstname:
           description: First name of the contact
+          type: string
+        lastname:
+          description: Last name of the contact
+          type: string
+        fullname:
+          description: Full name of the contact
+          type: string
+          readOnly: true
+        address:
+          description: Address of the contact
+          type: string
+        email:
+          description: Email of the contact
+          type: string
+          format: email
+        mobile:
+          description: Mobile phone number of the contact
           type: string

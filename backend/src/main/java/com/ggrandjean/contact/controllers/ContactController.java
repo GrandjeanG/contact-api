@@ -9,14 +9,14 @@ import com.ggrandjean.contact.model.Skill;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import com.ggrandjean.contact.services.ContactService;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Controller
+@RestController
 public class ContactController implements ContactApi {
 
     private final ContactService service;

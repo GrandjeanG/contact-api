@@ -41,6 +41,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 
 	/* For Open API autogeneration */
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
 	compileOnly "org.springframework.data:spring-data-commons"
 	compileOnly "io.springfox:springfox-swagger2:${springfoxVersion}"
 	compileOnly "io.springfox:springfox-swagger-ui:${springfoxVersion}"

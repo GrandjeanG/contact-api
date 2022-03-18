@@ -9,3 +9,6 @@ From the project folder you can run:
 ```docker-compose up -d```
 
 The api is available on : `localhost:8080`
+
+You can access Swagger UI on:
+```localhost:8080/swagger-ui/index.html```

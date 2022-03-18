@@ -1,0 +1,68 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'org.openapi.generator' version '5.3.0'
+}
+
+group = 'com.ggrandjean'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+sourceSets.main.java.srcDir "$projectDir/gen/src/main/java"
+sourceSets.main.java.srcDir "$projectDir/src/main/java"
+
+ext {
+	set('springfoxVersion', '2.9.2')
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	/* For Open API autogeneration */
+	compileOnly "org.springframework.data:spring-data-commons"
+	compileOnly "io.springfox:springfox-swagger2:${springfoxVersion}"
+	compileOnly "io.springfox:springfox-swagger-ui:${springfoxVersion}"
+	compileOnly "jakarta.xml.bind:jakarta.xml.bind-api"
+	compileOnly "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+	compileOnly "org.openapitools:jackson-databind-nullable:0.2.1"
+	compileOnly "jakarta.validation:jakarta.validation-api"
+	compileOnly "com.fasterxml.jackson.core:jackson-databind"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "$rootDir/../api.yaml".toString()
+	outputDir = "$projectDir/gen/".toString()
+	apiFilesConstrainedTo = [""]
+	modelFilesConstrainedTo = [""]
+	supportingFilesConstrainedTo = ["ApiUtil.java"]
+	apiPackage = "com.ggrandjean.contact"
+	invokerPackage = "com.ggrandjean.contact.invoker"
+	modelPackage = "com.ggrandjean.contact.model"
+	configOptions = [
+			library: "spring-cloud",
+			dateLibrary: "java8",
+			interfaceOnly: "true",
+			additionalModelTypeAnnotations: "@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.experimental.FieldNameConstants",
+			openApiNullable: "false"
+	]
+}

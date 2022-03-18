@@ -1,0 +1,43 @@
+openapi: 3.0.2
+
+info:
+  version: 0.0.1
+  title: Contact Api
+  description: Contact Api for Open Web Technology Challenge
+
+tags:
+  - name: "Contact"
+
+paths:
+  /contact/{contactId}:
+    get:
+      tags:
+        - "Contact"
+      description: Get one contact
+      operationId: getOneContact
+      parameters:
+        - in: path
+          name: contactId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return contact model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+
+components:
+  schemas:
+    Contact:
+      description: Contact model
+      type: object
+      properties:
+        id:
+          description: Id of the contact.
+          type: string
+        firstname:
+          description: First name of the contact
+          type: string
